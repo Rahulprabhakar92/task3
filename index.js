@@ -6,12 +6,12 @@ const path = require('path'); // Added for file path handling
 const app = express();
 const port = 3000;
 
-let reportJson = []; // Define globally to store JSON data for API
 
-// Function to process Excel and generate report
+
+
 function generateReport() {
-  // Read the input Excel file
-  const workbook = XLSX.readFile('RegistrationReport .xlsx'); // Fixed filename (removed space)
+
+  const workbook = XLSX.readFile('RegistrationReport .xlsx'); 
   const sheetName = workbook.SheetNames[0];
   const sheet = workbook.Sheets[sheetName];
   const rows = XLSX.utils.sheet_to_json(sheet);
@@ -26,7 +26,7 @@ function generateReport() {
       return;
     }
     const month = date.format('MMM YYYY');
-    // Normalize device name (e.g., "IOS" to "iOS")
+
     const device = row['RegistrationDevice'].toLowerCase() === 'ios' ? 'iOS' : row['RegistrationDevice'];
     const status = row['Calley Status'];
 
@@ -88,7 +88,6 @@ function generateReport() {
   return reportJson; // Return for better error handling
 }
 
-// Run the report generation and set up routes
 try {
   generateReport();
 
