@@ -16,7 +16,7 @@ function generateReport() {
   const sheet = workbook.Sheets[sheetName];
   const rows = XLSX.utils.sheet_to_json(sheet);
 
-  // Process data into nested structure
+  // Process data into nested structuree
   const reportData = {};
   rows.forEach((row) => {
     const date = moment(row['Registration Date'], 'MMM DD YYYY hh:mmA');
