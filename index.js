@@ -1,8 +1,7 @@
 const express = require('express');
 const XLSX = require('xlsx');
 const moment = require('moment');
-const path = require('path'); // Added for file path handling
-
+const path = require('path'); 
 const app = express();
 const port = 3000;
 
@@ -16,7 +15,7 @@ function generateReport() {
   const sheet = workbook.Sheets[sheetName];
   const rows = XLSX.utils.sheet_to_json(sheet);
 
-  // Process data into nested structuree
+  // Process data into nested structure
   const reportData = {};
   rows.forEach((row) => {
     const date = moment(row['Registration Date'], 'MMM DD YYYY hh:mmA');
@@ -37,7 +36,7 @@ function generateReport() {
     reportData[device][status][month]++;
   });
 
-  // Get unique months dynamically and sort chronologically
+
   const months = [...new Set(rows
     .map(row => moment(row['Registration Date'], 'MMM DD YYYY hh:mmA'))
     .filter(date => date.isValid())
@@ -66,7 +65,7 @@ function generateReport() {
     }
   }
 
-  // Create a new workbook and sheet
+  //  new workbook and sheet
   const newWorkbook = XLSX.utils.book_new();
   const newSheet = XLSX.utils.aoa_to_sheet(tableData);
   XLSX.utils.book_append_sheet(newWorkbook, newSheet, 'Report');
@@ -88,6 +87,7 @@ function generateReport() {
   return reportJson; // Return for better error handling
 }
 
+// Run the report generation and set up routes
 try {
   generateReport();
 
